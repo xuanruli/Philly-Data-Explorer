@@ -21,7 +21,7 @@ public class Logger {
             logWriter.close();
         }
 
-        // terminate if cannot create/open the specified log file for writing
+        // terminate if you cannot create/open the specified log file for writing
         try {
             logWriter = new PrintWriter(new FileWriter(filename, true));
         } catch (IOException e) {

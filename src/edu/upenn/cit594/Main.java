@@ -23,11 +23,11 @@ public class Main {
 //        List<Map<String, String>> covidData = reader2.read();
 //        System.out.println(covidData.subList(0, 10));
 
-        CovidCSVReader covidCSVReader = new CovidCSVReader(fileMap.get("covid"));
+        CovidReader covidCSVReader = new CovidReader(fileMap.get("covid"));
         List<CovidData> covidDataList = covidCSVReader.read();
 
         File file = new File("covid_data.json");
-        CovidJSONReader covidJSONReader = new CovidJSONReader(file);
+        CovidReader covidJSONReader = new CovidReader(file);
         List<CovidData> covidDataList2 = covidJSONReader.read();
 
         assert covidDataList.size() == covidDataList2.size();
