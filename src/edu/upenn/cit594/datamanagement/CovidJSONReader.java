@@ -12,14 +12,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CovidJsonReader extends DataReader<List<CovidData>> {
+public class CovidJSONReader extends DataReader<List<CovidData>> {
 
-    public CovidJsonReader(File file) {
+    public CovidJSONReader(File file) {
         super(file);
     }
 
     @Override
-    public List<CovidData> getDataFromFile() throws IOException, ParseException, java.text.ParseException {
+    protected List<CovidData> getDataFromFile() throws IOException, ParseException, java.text.ParseException {
         JSONParser json = new JSONParser();
         JSONArray records = (JSONArray) json.parse(new FileReader(file));
 
@@ -28,8 +28,8 @@ public class CovidJsonReader extends DataReader<List<CovidData>> {
             JSONObject entry = (JSONObject) record;
 
             // Parse zipcode
-            String entryZip = (String) entry.get("zip_code");
-            if (!isValidZip(entryZip)){
+            String entryZip = Long.toString((Long) entry.get("zip_code"));
+            if (CovidData.isInvalidZip(entryZip)){
                 continue;
             }
 
@@ -37,12 +37,12 @@ public class CovidJsonReader extends DataReader<List<CovidData>> {
 
             // Parse timestamp
             String entryTime = (String) entry.get("etl_timestamp");
-            if (!isValidTime(entryTime)){
+            if (CovidData.isInvalidTimestamp(entryTime)){
                 continue;
             }
 
-            int entryPartialNum = getInt(entry.get("partially_vaccinated"));
-            int entryFullNum = getInt(entry.get("fully_vaccinated"));
+            int entryPartialNum = CovidData.getValidVaccinatedCount(entry.get("partially_vaccinated"));
+            int entryFullNum = CovidData.getValidVaccinatedCount(entry.get("fully_vaccinated"));
 
             // Add to covidData
             covidDataList.add(new CovidData(entryZipInt, entryTime, entryPartialNum, entryFullNum));
@@ -51,18 +51,5 @@ public class CovidJsonReader extends DataReader<List<CovidData>> {
         return covidDataList;
     }
 
-    private boolean isValidZip(String zip){
-        return (zip != null && zip.length() == 5 && zip.matches("\\d{5}"));
-    }
 
-    private boolean isValidTime(String time){
-        return (time != null && time.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"));
-    }
-
-    private int getInt(Object obj){
-        if (obj == null || obj.toString().isEmpty()){
-            return 0;
-        }
-        return (int) obj;
-    }
 }

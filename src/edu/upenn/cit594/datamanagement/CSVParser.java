@@ -1,11 +1,10 @@
 package edu.upenn.cit594.datamanagement;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class CSVLexer {
+public class CSVParser {
     @SuppressWarnings("unused")
     private static final long serialVersionUID = 5130409650040L;
     private final CharacterReader reader;
@@ -25,7 +24,7 @@ public class CSVLexer {
         EXCEPTION
     }
 
-    public CSVLexer(CharacterReader reader) {
+    public CSVParser(CharacterReader reader) {
         this.reader = reader;
     }
 

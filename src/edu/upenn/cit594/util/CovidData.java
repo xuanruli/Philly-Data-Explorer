@@ -3,6 +3,7 @@ package edu.upenn.cit594.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class CovidData {
     private final int zip;
@@ -15,6 +16,22 @@ public class CovidData {
         this.timestamp = timestamp;
         this.numPartiallyVaccinated = numPartiallyVaccinated;
         this.numFullyVaccinated = numFullyVaccinated;
+    }
+
+    public static boolean isInvalidZip(String zip) {
+        return (zip == null || zip.length() != 5 || !zip.matches("\\d{5}"));
+    }
+
+    public static boolean isInvalidTimestamp(String timestamp) {
+        return (timestamp == null || !timestamp.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"));
+    }
+
+    public static int getValidVaccinatedCount(Object obj) {
+        if (obj == null || obj.toString().isEmpty()) {
+            return 0;
+        }
+
+        return Integer.parseInt(obj.toString());
     }
 
     public int getCovidDataZip(){
@@ -36,5 +53,23 @@ public class CovidData {
 
     public int getNumFullyVaccinated(){
         return numFullyVaccinated;
+    }
+
+    @Override
+    public String toString() {
+        return Map.of("zip", zip, "timestamp", timestamp, "partially_vaccinated", numPartiallyVaccinated, "fully_vaccinated", numFullyVaccinated).toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof CovidData other)) {
+            return false;
+        }
+
+        return zip == other.zip && timestamp.equals(other.timestamp) && numPartiallyVaccinated == other.numPartiallyVaccinated && numFullyVaccinated == other.numFullyVaccinated;
     }
 }

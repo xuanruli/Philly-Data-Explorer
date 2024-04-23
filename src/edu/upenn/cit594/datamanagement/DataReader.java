@@ -17,7 +17,7 @@ public abstract class DataReader<T> {
         return getDataFromFile();
     }
 
-    public abstract T getDataFromFile() throws Exception;
+    protected abstract T getDataFromFile() throws Exception;
 
     public File getFile() {
         return file;
