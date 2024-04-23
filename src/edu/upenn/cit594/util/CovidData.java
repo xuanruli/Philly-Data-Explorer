@@ -6,23 +6,13 @@ import java.util.Date;
 
 public class CovidData {
     private final int zip;
-    private final Date timestamp;
+    private final String timestamp;
     private final int numPartiallyVaccinated;
     private final int numFullyVaccinated;
 
-    public CovidData(int zip, Date timestamp, int numPartiallyVaccinated, int numFullyVaccinated){
+    public CovidData(int zip, String timestamp, int numPartiallyVaccinated, int numFullyVaccinated) throws ParseException {
         this.zip = zip;
         this.timestamp = timestamp;
-        this.numPartiallyVaccinated = numPartiallyVaccinated;
-        this.numFullyVaccinated = numFullyVaccinated;
-    }
-
-    public CovidData(int zip, String timestamp, int numPartiallyVaccinated, int numFullyVaccinated) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = sdf.parse(timestamp);
-
-        this.zip = zip;
-        this.timestamp = date;
         this.numPartiallyVaccinated = numPartiallyVaccinated;
         this.numFullyVaccinated = numFullyVaccinated;
     }
@@ -31,8 +21,13 @@ public class CovidData {
         return zip;
     }
 
-    public Date getTimestamp(){
+    public String getTimestamp(){
         return timestamp;
+    }
+
+    public Date getDate() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.parse(timestamp);
     }
 
     public int getNumPartiallyVaccinated(){

@@ -25,6 +25,14 @@ public class CSVFormatException extends Exception {
         this.field = -1;
     }
 
+    public CSVFormatException(int line) {
+        super();
+        this.line = line;
+        this.column = -1;
+        this.row = -1;
+        this.field = -1;
+    }
+
     /**
      * Constructs a new exception with the specified detail message.
      *

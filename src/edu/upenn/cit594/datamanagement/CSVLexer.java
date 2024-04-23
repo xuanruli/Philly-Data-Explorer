@@ -1,6 +1,4 @@
 package edu.upenn.cit594.datamanagement;
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,11 +17,11 @@ public class CSVLexer {
         FIELD,
         ESCAPED,
         NON_ESCAPED,
-        CRLF,
+        COMMA_CRLF_EOF,
         COMMA,
-        ESCAPE_PENDING,
+        CRLF,
         EOF,
-        LF,
+        CARRIAGE,
         EXCEPTION
     }
 
@@ -57,30 +55,35 @@ public class CSVLexer {
      * @throws IOException when the underlying reader encountered an error
      * @throws CSVFormatException when the CSV file is formatted incorrectly
      */
-
     public String[] readRow() throws IOException, CSVFormatException {
-        List<String> row = new ArrayList<String>();
+        List<String> row = new ArrayList<>();
         Optional<Character> c;
+        int column = 0;
+
         State state = State.START;
         while (true) {
-            switch(state) {
+            switch (state) {
                 case START:
                     state = State.FIELD;
+                    break;
                 case FIELD:
                     c = readChar();
-                    if (c.isEmpty()) {
+                    column++;
+
+                    if (c.isEmpty()) { // EOF
                         if (row.isEmpty()) return null;
-                        state = State.EOF;
+                        state = State.NON_ESCAPED; // ????
                     } else if (c.get() == '"') {
                         state = State.ESCAPED;
-                    } else if (c.get() == '\r') {
-                        state = State.CRLF;
-                    } else if (c.get() == '\n') {
-                        addRowAndReset(row);
-                        state = State.LF;
                     } else if (c.get() == ',') {
                         addRowAndReset(row);
                         state = State.COMMA;
+                    } else if (c.get() == '\r') {
+                        addRowAndReset(row);
+                        state = State.CARRIAGE;
+                    } else if (c.get() == '\n') {
+                        addRowAndReset(row);
+                        state = State.CRLF;
                     } else {
                         currString.append(c.get());
                         state = State.NON_ESCAPED;
@@ -88,73 +91,84 @@ public class CSVLexer {
                     break;
                 case ESCAPED:
                     c = readChar();
-                    if (c.isEmpty()) {
+                    column++;
+
+                    if (c.isEmpty()) { // EOF
                         state = State.EXCEPTION;
                     } else if (c.get() == '"') {
-                        state = State.ESCAPE_PENDING;
+                        state = State.COMMA_CRLF_EOF;
                     } else {
                         currString.append(c.get());
+                    }
+                    break;
+                case COMMA_CRLF_EOF:
+                    c = readChar();
+                    column++;
+
+                    if (c.isEmpty()) { // EOF
+                        addRowAndReset(row);
+                        state = State.EOF;
+                    } else if (c.get() == '\n') {
+                        addRowAndReset(row);
+                        state = State.CRLF;
+                    } else if (c.get() == '\r') {
+                        addRowAndReset(row);
+                        state = State.CARRIAGE;
+                    } else if (c.get() == ',') {
+                        addRowAndReset(row);
+                        state = State.COMMA;
+                    } else if (c.get() == '"') {
+                        currString.append("\"");
                         state = State.ESCAPED;
+                    } else {
+                        state = State.EXCEPTION;
                     }
                     break;
                 case NON_ESCAPED:
                     c = readChar();
-                    if (c.isEmpty()) {
+                    column++;
+
+                    if (c.isEmpty()) { // EOF
                         addRowAndReset(row);
                         state = State.EOF;
-                    }else if (c.get() == '"') {
-                        state = State.EXCEPTION;
-                    } else if (c.get() == '\r') {
-                        state = State.CRLF;
-                    } else if (c.get() == '\n') {
-                        addRowAndReset(row);
-                        state = State.LF;
                     } else if (c.get() == ',') {
                         addRowAndReset(row);
                         state = State.COMMA;
+                    } else if (c.get() == '\n') {
+                        addRowAndReset(row);
+                        state = State.CRLF;
+                    } else if (c.get() == '\r') {
+                        addRowAndReset(row);
+                        state = State.CARRIAGE;
+                    } else if (c.get() == '"') {
+                        state = State.EXCEPTION;
                     } else {
                         currString.append(c.get());
-                        state = State.NON_ESCAPED;
                     }
                     break;
-                case ESCAPE_PENDING:
+                case COMMA:
+                    state = State.FIELD;
+                    break;
+                case CARRIAGE:
                     c = readChar();
-                    if (c.isEmpty()) {
-                        addRowAndReset(row);
-                        state = State.EOF;
-                    } else if (c.get() == '"') {
-                        currString.append('\"');
-                        state = State.ESCAPED;
-                    } else if (c.get() == '\r') {
-                        state = State.CRLF;
+                    column++;
+
+                    if (c.isEmpty()) { // EOF
+                        state = State.EXCEPTION; // ?????
                     } else if (c.get() == '\n') {
-                        addRowAndReset(row);
-                        state = State.LF;
-                    } else if (c.get() == ',') {
-                        addRowAndReset(row);
-                        state = State.COMMA;
+                        state = State.CRLF;
                     } else {
                         state = State.EXCEPTION;
                     }
                     break;
                 case CRLF:
-                    c = readChar();
-                    if (c.get() == '\n') {
-                        addRowAndReset(row);
-                        state = State.LF;
-                    } else {
-                        state = State.EXCEPTION;
-                    }
-                    break;
-                case LF:
+                    currLine++;
                     return row.toArray(new String[0]);
-                case COMMA:
-                    state = State.FIELD;
-                    break;
-                case EXCEPTION:
-                    throw new CSVFormatException();
                 case EOF:
+                    currLine++;
                     return row.toArray(new String[0]);
+                case EXCEPTION:
+                    throw new CSVFormatException("", currLine, column, currLine, row.size());
             }
         }
     }

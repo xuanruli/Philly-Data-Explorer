@@ -20,8 +20,11 @@ public class CovidCsvReader extends DataReader<List<CovidData>> {
 
         String[] headerRow = csvLexer.readRow();
         List<String[]> rowList = new ArrayList<>();
+        System.out.println(headerRow);
+
         while (true) {
             String[] row = csvLexer.readRow();
+            System.out.println(row);
             if (row == null) break;
 
             rowList.add(row);
