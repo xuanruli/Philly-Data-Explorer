@@ -15,7 +15,7 @@ public class CovidReader extends DataReader<List<CovidData>> {
     }
 
     @Override
-    public List<CovidData> getDataFromFile() throws CSVFormatException, IOException, ParseException {
+    public List<CovidData> getDataFromFile() throws Exception {
         String fileType = file.getName().substring(file.getName().lastIndexOf("."));
 
         return switch (fileType) {

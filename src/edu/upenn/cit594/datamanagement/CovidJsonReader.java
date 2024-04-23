@@ -7,9 +7,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CovidJsonReader extends DataReader<List<CovidData>> {
@@ -19,14 +19,15 @@ public class CovidJsonReader extends DataReader<List<CovidData>> {
     }
 
     @Override
-    public List<CovidData> getDataFromFile() throws IOException, ParseException {
+    public List<CovidData> getDataFromFile() throws IOException, ParseException, java.text.ParseException {
         JSONParser json = new JSONParser();
-
         JSONArray records = (JSONArray) json.parse(new FileReader(file));
+
+        List<CovidData> covidDataList = new ArrayList<>();
         for (Object record: records){
             JSONObject entry = (JSONObject) record;
 
-            //parse zipcode
+            // Parse zipcode
             String entryZip = (String) entry.get("zip_code");
             if (!isValidZip(entryZip)){
                 continue;
@@ -34,7 +35,7 @@ public class CovidJsonReader extends DataReader<List<CovidData>> {
 
             int entryZipInt = Integer.parseInt(entryZip.substring(0,5));
 
-            //parse timestamp
+            // Parse timestamp
             String entryTime = (String) entry.get("etl_timestamp");
             if (!isValidTime(entryTime)){
                 continue;
@@ -42,10 +43,12 @@ public class CovidJsonReader extends DataReader<List<CovidData>> {
 
             int entryPartialNum = getInt(entry.get("partially_vaccinated"));
             int entryFullNum = getInt(entry.get("fully_vaccinated"));
-            this.covidData.add(new CovidData(entryZipInt, entryTime, entryPartialNum, entryFullNum));
+
+            // Add to covidData
+            covidDataList.add(new CovidData(entryZipInt, entryTime, entryPartialNum, entryFullNum));
         }
 
-        return null;
+        return covidDataList;
     }
 
     private boolean isValidZip(String zip){
