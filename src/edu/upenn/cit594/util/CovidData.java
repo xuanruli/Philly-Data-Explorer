@@ -3,14 +3,14 @@ package edu.upenn.cit594.util;
 public class CovidData {
     private final int zip;
     private final String timestamp;
-    private final int partiallyVaxedNum;
-    private final int fullyVaxedNum;
+    private final int numPartiallyVaccinated;
+    private final int numFullyVaccinated;
 
     public CovidData (int zip, String timestamp, int partiallyVaxedNum, int fullyVaxedNum){
         this.zip = zip;
         this.timestamp = timestamp;
-        this.partiallyVaxedNum = partiallyVaxedNum;
-        this.fullyVaxedNum = fullyVaxedNum;
+        this.numPartiallyVaccinated = partiallyVaxedNum;
+        this.numFullyVaccinated = fullyVaxedNum;
     }
 
     public int getCovidDataZip(){
@@ -21,11 +21,11 @@ public class CovidData {
         return timestamp;
     }
 
-    public int getPartiallyVaxedNum(){
-        return partiallyVaxedNum;
+    public int getNumPartiallyVaccinated(){
+        return numPartiallyVaccinated;
     }
 
-    public int getFullyVaxedNum(){
-        return fullyVaxedNum;
+    public int getNumFullyVaccinated(){
+        return numFullyVaccinated;
     }
 }

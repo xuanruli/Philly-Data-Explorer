@@ -1,32 +1,33 @@
 package edu.upenn.cit594.datamanagement;
 
 import edu.upenn.cit594.util.CovidData;
+import org.json.simple.parser.ParseException;
+
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
 
-public abstract class CovidReader {
-    protected ArrayList<CovidData> covidData = new ArrayList<>();
+public class CovidReader extends DataReader<List<CovidData>> {
 
-    private static CovidReader readCovidFile(File file) {
-        if (file != null && file.exists()){
-            String fileType = file.getName().substring(file.getName().lastIndexOf("."));
-            if (fileType.equals(".csv") || fileType.equals(".json")) {
-                switch(fileType){
-                    case ".csv":
-                        return new CovidCsvReader(file);
-                    case ".json":
-                        return new CovidJsonReader(file);
-                    default:
-                        System.out.println("Invalid file extension.");
-                }
-            }
-        }
-
-        return null;
+    public CovidReader(File file) {
+        super(file);
     }
 
-    public static ArrayList<CovidData> getCovidData(File file) {
-        CovidReader reader = readCovidFile(file);
-        return reader.covidData;
+    @Override
+    public List<CovidData> getDataFromFile() throws CSVFormatException, IOException, ParseException {
+        String fileType = file.getName().substring(file.getName().lastIndexOf("."));
+
+        return switch (fileType) {
+            case ".csv" -> {
+                CovidCsvReader csvReader = new CovidCsvReader(file);
+                yield csvReader.getDataFromFile();
+            }
+            case ".json" -> {
+                CovidJsonReader jsonReader = new CovidJsonReader(file);
+                yield jsonReader.getDataFromFile();
+            }
+            default -> throw new IOException("Invalid file extension.");
+        };
     }
 }

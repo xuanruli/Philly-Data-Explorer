@@ -40,9 +40,9 @@ public class CovidDataProcessor {
             String parsedDate = data.getTimestamp().split(" ")[0];
             if (parsedDate.equals(date)){
                 if (condition.equals("partial")){
-                    count = data.getPartiallyVaxedNum();
+                    count = data.getNumPartiallyVaccinated();
                 } else if (condition.equals("full")){
-                    count = data.getFullyVaxedNum();
+                    count = data.getNumFullyVaccinated();
                 }
                 int relatedZip = data.getCovidDataZip();
                 for (Population p: population){
