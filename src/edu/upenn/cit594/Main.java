@@ -4,6 +4,7 @@ import edu.upenn.cit594.datamanagement.*;
 import edu.upenn.cit594.ui.UIManager;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.Population;
+import edu.upenn.cit594.util.Property;
 
 import java.io.File;
 import java.util.List;
@@ -41,5 +42,13 @@ public class Main {
         }
 
         System.out.println("All covid data are the same");
+
+        PopulationReader populationReader = new PopulationReader(fileMap.get("population"));
+        List<Population> populationList = populationReader.read();
+        System.out.println(populationList);
+
+        PropertyReader propertyReader = new PropertyReader(fileMap.get("properties"));
+        List<Property> propertyList = propertyReader.read();
+        System.out.println(propertyList.subList(0, 10));
     }
 }

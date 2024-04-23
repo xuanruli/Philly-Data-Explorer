@@ -1,5 +1,7 @@
 package edu.upenn.cit594.util;
 
+import java.util.Map;
+
 public class Population {
     private final int populationZip;
     private final int population;
@@ -15,5 +17,10 @@ public class Population {
 
     public int getPopulationZip() {
         return populationZip;
+    }
+
+    @Override
+    public String toString() {
+        return Map.of("zip_code", populationZip, "population", population).toString();
     }
 }

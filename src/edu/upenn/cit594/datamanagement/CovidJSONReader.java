@@ -44,7 +44,6 @@ public class CovidJSONReader extends DataReader<List<CovidData>> {
             int entryPartialNum = CovidData.getValidVaccinatedCount(entry.get("partially_vaccinated"));
             int entryFullNum = CovidData.getValidVaccinatedCount(entry.get("fully_vaccinated"));
 
-            // Add to covidData
             covidDataList.add(new CovidData(entryZipInt, entryTime, entryPartialNum, entryFullNum));
         }
 
