@@ -21,6 +21,6 @@ public class Main {
 
         Analysis analysis = new PopulationAnalysis();
 
-        processor.process(analysis, null);
+        processor.process(analysis);
     }
 }

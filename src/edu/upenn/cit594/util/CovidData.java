@@ -47,6 +47,10 @@ public class CovidData {
         return sdf.parse(timestamp);
     }
 
+    public String getYMD() {
+        return timestamp.substring(0, 10);
+    }
+
     public int getNumPartiallyVaccinated(){
         return numPartiallyVaccinated;
     }

@@ -2,13 +2,17 @@ package edu.upenn.cit594.processor;
 
 import edu.upenn.cit594.util.Dataset;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
 public abstract class Analysis {
 
-    public String extraArgPrompt() {
-        return null;
+    public Map<String, Function<String, Boolean>> getExtraArgsPrompts() {
+        return Map.of();
     }
 
     public abstract String getId();
 
-    public abstract void analyze(Dataset dataset, ResultEmitter emitter, String extraArg);
+    public abstract void analyze(Dataset dataset, ResultEmitter emitter, List<String> extraArg);
 }

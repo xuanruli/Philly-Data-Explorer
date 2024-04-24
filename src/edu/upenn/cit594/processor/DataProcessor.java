@@ -22,20 +22,29 @@ public class DataProcessor {
         this.dataset = new Dataset(populationReader.read(), propertyReader.read(), covidReader.read());
     }
 
-    public void process(Analysis analysis, String extraArg) {
+    public void process(Analysis analysis) {
+        process(analysis, List.of());
+    }
+
+    public void process(Analysis analysis, List<String> extraArgs) {
+        if (extraArgs == null || extraArgs.size() != analysis.getExtraArgsPrompts().size()) {
+            throw new IllegalArgumentException("Invalid extra arguments");
+        }
+
         if (!analysisResults.containsKey(analysis.getId())) {
             analysisResults.put(analysis.getId(), new HashMap<>());
         }
 
         Map<String, List<String>> results = analysisResults.get(analysis.getId());
 
-        if (!results.containsKey(extraArg)) {
+        String extraArgsKey = extraArgs.toString();
+        if (!results.containsKey(extraArgsKey)) {
             ResultEmitter emitter = new ResultEmitter();
-            analysis.analyze(dataset, emitter, extraArg);
-            results.put(extraArg, emitter.getResults());
+            analysis.analyze(dataset, emitter, extraArgs);
+            results.put(extraArgsKey, emitter.getResults());
         }
 
-        showResults(results.get(extraArg));
+        showResults(results.get(extraArgsKey));
     }
 
     public void showResults(List<String> results) {
