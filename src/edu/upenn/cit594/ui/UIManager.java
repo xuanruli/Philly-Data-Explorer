@@ -1,5 +1,6 @@
 package edu.upenn.cit594.ui;
 
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Analysis;
 import edu.upenn.cit594.processor.DataProcessor;
 
@@ -9,6 +10,7 @@ import java.util.function.Function;
 public class UIManager {
 
     private final DataProcessor processor;
+    private final Logger logger = Logger.getInstance();
     private final List<Map.Entry<String, Analysis>> analysisList = new ArrayList<>();
 
     public UIManager(DataProcessor processor) {
@@ -54,6 +56,7 @@ public class UIManager {
             displayPrompt();
             try {
                 input = scanner.nextLine();
+                logger.logEvent("[USER INPUT] " + input);
             } catch (Exception e) {
                 displayContent(e.getMessage());
                 break;
@@ -72,6 +75,7 @@ public class UIManager {
             displayPrompt();
 
             String input = scanner.nextLine();
+            logger.logEvent("[USER INPUT] " + input);
 
             try {
                 choice = Integer.parseInt(input);

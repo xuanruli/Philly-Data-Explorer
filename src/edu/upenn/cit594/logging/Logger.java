@@ -3,6 +3,8 @@ package edu.upenn.cit594.logging;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Logger {
     private static Logger logger = new Logger();
@@ -35,9 +37,8 @@ public class Logger {
             return;
         }
 
-
-        logWriter.println(event);
-        // ensure buffered data is written immediately to destination
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " ";
+        logWriter.println(timeStamp + event);
         logWriter.flush();
     }
 
@@ -46,6 +47,5 @@ public class Logger {
             logWriter.close();
         }
     }
-
 }
 

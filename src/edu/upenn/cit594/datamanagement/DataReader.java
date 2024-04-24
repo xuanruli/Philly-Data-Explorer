@@ -1,5 +1,7 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.logging.Logger;
+
 import java.io.File;
 
 public abstract class DataReader<T> {
@@ -14,6 +16,8 @@ public abstract class DataReader<T> {
             System.err.println("File does not exist.");
         }
 
+        Logger logger = Logger.getInstance();
+        logger.logEvent("[READ] " + file.getName());
         return getDataFromFile();
     }
 

@@ -1,9 +1,12 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.logging.Logger;
+
 import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ArgumentParser {
 
@@ -57,6 +60,12 @@ public class ArgumentParser {
 
             fileMap.put(name, file);
         }
+
+        Logger logger = Logger.getInstance();
+        logger.setLoggerDestination(fileMap.get("log").getName());
+
+        String command = Arrays.stream(args).map(Object::toString).collect(Collectors.joining(", "));
+        logger.logEvent("[COMMAND] " + command);
 
         return fileMap;
     }

@@ -1,6 +1,7 @@
 package edu.upenn.cit594;
 
 import edu.upenn.cit594.datamanagement.*;
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
 import edu.upenn.cit594.ui.UIManager;
 
@@ -12,8 +13,8 @@ import static org.junit.Assert.assertTrue;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-
         Map<String, File> fileMap;
+
         try {
             fileMap = ArgumentParser.processRuntimeArgs(args);
         } catch (IllegalArgumentException e) {
@@ -23,11 +24,14 @@ public class Main {
             return;
         }
 
+        // create a DataProcessor component
         DataProcessor processor = new DataProcessor(
             fileMap.get("population"),
             fileMap.get("properties"),
             fileMap.get("covid")
         );
+
+        // create a UIManager component
         UIManager uiManager = new UIManager(processor);
 
         // Add analysis dependencies
@@ -50,6 +54,10 @@ public class Main {
         uiManager.addAnalysis(
             "Show the total market value of properties, per capita, for a specified ZIP Code",
             new MarketValuePerCapitaAnalysis()
+        );
+        uiManager.addAnalysis(
+            "Show the ratio of full vaccination count / total market value per capita in a specified zipcode for a given date",
+            new CombinedAnalysis()
         );
 
         // Run the UI component
