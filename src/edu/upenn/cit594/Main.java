@@ -24,8 +24,12 @@ public class Main {
 //        Analysis analysis = new AvgMarketValueAnalysis();
 //        processor.process(analysis, List.of("19106"));
 
-        Analysis analysis = new AvgLivableAreaAnalysis();
+//        Analysis analysis = new AvgLivableAreaAnalysis();
+//        processor.process(analysis, List.of("19106"));
+
+        Analysis analysis = new MarketValueAnalysis();
         processor.process(analysis, List.of("19106"));
+
 
 
     }

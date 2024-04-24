@@ -1,7 +1,5 @@
 package edu.upenn.cit594.ui;
 
-import edu.upenn.cit594.processor.CovidDataProcessor;
-
 import java.io.File;
 import java.util.*;
 
