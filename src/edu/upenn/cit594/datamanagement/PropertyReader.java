@@ -29,8 +29,8 @@ public class PropertyReader extends DataReader<List<Property>> {
             }
 
             int entryZipInt = Integer.parseInt(entryZip.substring(0, 5));
-            Integer entryMarketValue = Property.getValidInteger(entry.get("market_value"));
-            Integer entryArea = Property.getValidInteger(entry.get("total_livable_area"));
+            Double entryMarketValue = Property.getValidDouble(entry.get("market_value"));
+            Double entryArea = Property.getValidDouble(entry.get("total_livable_area"));
 
             propertyList.add(new Property(entryMarketValue, entryArea, entryZipInt));
         }

@@ -1,10 +1,7 @@
 package edu.upenn.cit594;
 
 import edu.upenn.cit594.datamanagement.*;
-import edu.upenn.cit594.processor.Analysis;
-import edu.upenn.cit594.processor.DataProcessor;
-import edu.upenn.cit594.processor.PopulationAnalysis;
-import edu.upenn.cit594.processor.VaccinationAnalysis;
+import edu.upenn.cit594.processor.*;
 
 import java.io.File;
 import java.util.List;
@@ -21,8 +18,12 @@ public class Main {
             fileMap.get("covid")
         );
 
-        Analysis analysis = new VaccinationAnalysis();
+//        Analysis analysis = new VaccinationAnalysis();
+//        processor.process(analysis, List.of("full", "2021-03-25"));
 
-        processor.process(analysis, List.of("full", "2021-03-25"));
+//        Analysis analysis = new AvgMarketValueAnalysis();
+//        processor.process(analysis, List.of("19132"));
+
+
     }
 }

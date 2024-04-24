@@ -3,11 +3,11 @@ package edu.upenn.cit594.util;
 import java.util.Map;
 
 public class Property {
-    private final Integer marketValue;
-    private final Integer area;
+    private final Double marketValue;
+    private final Double area;
     private final int propertyZip;
 
-    public Property(Integer marketValue, Integer area, int propertyZip) {
+    public Property(Double marketValue, Double area, int propertyZip) {
         this.marketValue = marketValue;
         this.area = area;
         this.propertyZip = propertyZip;
@@ -22,13 +22,13 @@ public class Property {
         return !zipcode.matches("[0-9]+");
     }
 
-    public static Integer getValidInteger(String strInt) {
-        if (strInt == null) {
+    public static Double getValidDouble(String strDouble) {
+        if (strDouble == null) {
             return null;
         }
 
         try {
-            return Integer.parseInt(strInt);
+            return Double.parseDouble(strDouble);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -45,11 +45,11 @@ public class Property {
         return propertyZip;
     }
 
-    public int getArea(){
+    public Double getArea(){
         return area;
     }
 
-    public int getMarketValue(){
+    public Double getMarketValue(){
         return marketValue;
     }
 }
