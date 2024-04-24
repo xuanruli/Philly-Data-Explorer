@@ -6,7 +6,12 @@ import edu.upenn.cit594.util.Population;
 public class PopulationAnalysis extends Analysis {
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter) {
+    public String getId() {
+        return "total_population";
+    }
+
+    @Override
+    public void analyze(Dataset dataset, ResultEmitter emitter, String extraArg) {
         int total = 0;
 
         for (Population population : dataset.getPopulations()) {

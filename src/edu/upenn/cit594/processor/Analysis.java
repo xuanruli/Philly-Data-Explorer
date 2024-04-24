@@ -4,5 +4,11 @@ import edu.upenn.cit594.util.Dataset;
 
 public abstract class Analysis {
 
-    public abstract void analyze(Dataset dataset, ResultEmitter emitter);
+    public String extraArgPrompt() {
+        return null;
+    }
+
+    public abstract String getId();
+
+    public abstract void analyze(Dataset dataset, ResultEmitter emitter, String extraArg);
 }
