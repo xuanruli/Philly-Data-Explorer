@@ -21,7 +21,6 @@ public class UIManager {
 
     public void displayPrompt() {
         System.out.print("> ");
-        System.out.flush();
     }
 
     public void displayContent(String s) {
@@ -58,7 +57,7 @@ public class UIManager {
         return input;
     }
 
-    public void run() {
+    public void run() throws Exception {
         Scanner scanner = new Scanner(System.in);
         showAvailableActions();
 
@@ -66,16 +65,17 @@ public class UIManager {
         while (true) {
             displayPrompt();
 
+            String input = scanner.nextLine();
+
             try {
-                choice = scanner.nextInt();
+                choice = Integer.parseInt(input);
             } catch (Exception e) {
                 displayContent("Invalid input, should be a number." );
-                scanner.nextLine();
                 continue;
             }
 
             if (choice < 0 || choice > analysisList.size() + 1) {
-                displayContent("Invalid input. Only try number from 0 to " + analysisList.size());
+                displayContent("Invalid input. Only try number from 0 to " + (analysisList.size() + 1));
                 continue;
             }
 

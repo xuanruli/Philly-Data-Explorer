@@ -21,7 +21,7 @@ public class AvgMarketValueAnalysis extends Analysis {
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) throws Exception {
         List<Double> marketValues = dataset.getProperties().stream()
                 .filter(property -> property.getPropertyZip() == Integer.parseInt(params.get(0)))
                 .map(Property::getMarketValue)

@@ -13,7 +13,7 @@ public class PopulationAnalysis extends Analysis {
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) throws Exception {
         int total = 0;
 
         for (Population population : dataset.getPopulations()) {

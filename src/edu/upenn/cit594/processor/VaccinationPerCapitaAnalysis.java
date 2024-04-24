@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
-public class VaccinationAnalysis extends Analysis {
+public class VaccinationPerCapitaAnalysis extends Analysis {
 
     enum VaccinationType {
         PARTIAL,
@@ -32,7 +31,7 @@ public class VaccinationAnalysis extends Analysis {
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) throws Exception {
         VaccinationType vaccinationType = getVaccinationType(params.get(0));
         String date = params.get(1);
 
@@ -71,7 +70,7 @@ public class VaccinationAnalysis extends Analysis {
         } else if (extraArg.equals("full")) {
             return VaccinationType.FULL;
         } else {
-            throw new IllegalArgumentException("Invalid vaccination type");
+            throw new IllegalArgumentException("Invalid vaccination type: " + extraArg);
         }
     }
 }

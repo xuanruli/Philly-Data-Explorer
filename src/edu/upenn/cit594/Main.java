@@ -2,9 +2,9 @@ package edu.upenn.cit594;
 
 import edu.upenn.cit594.datamanagement.*;
 import edu.upenn.cit594.processor.*;
+import edu.upenn.cit594.ui.UIManager;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -17,19 +17,31 @@ public class Main {
             fileMap.get("properties"),
             fileMap.get("covid")
         );
+        UIManager uiManager = new UIManager(processor);
 
-//        Analysis analysis = new VaccinationAnalysis();
-//        processor.process(analysis, List.of("full", "2021-03-25"));
+        // Add analysis dependencies
+        uiManager.addAnalysis(
+            "Show the total population for all ZIP Codes",
+            new PopulationAnalysis()
+        );
+        uiManager.addAnalysis(
+            "Show the total vaccinations per capita for each ZIP Code for the specified date",
+            new VaccinationPerCapitaAnalysis()
+        );
+        uiManager.addAnalysis(
+            "Show the average market value for properties in a specified ZIP Code",
+            new AvgMarketValueAnalysis()
+        );
+        uiManager.addAnalysis(
+            "Show the average total livable area for properties in a specified ZIP Code",
+            new AvgLivableAreaAnalysis()
+        );
+        uiManager.addAnalysis(
+            "Show the total market value of properties, per capita, for a specified ZIP Code",
+            new MarketValuePerCapitaAnalysis()
+        );
 
-//        Analysis analysis = new AvgMarketValueAnalysis();
-//        processor.process(analysis, List.of("19106"));
-
-//        Analysis analysis = new AvgLivableAreaAnalysis();
-//        processor.process(analysis, List.of("19106"));
-
-        Analysis analysis = new MarketValueAnalysis();
-        String result = processor.process(analysis, List.of("19106"));
-
-        System.out.println("BEGIN OUTPUT\n" + result + "\nEND OUTPUT");
+        // Run the UI component
+        uiManager.run();
     }
 }

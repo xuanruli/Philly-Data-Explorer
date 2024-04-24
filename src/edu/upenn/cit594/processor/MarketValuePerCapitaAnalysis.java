@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class MarketValueAnalysis extends Analysis {
+public class MarketValuePerCapitaAnalysis extends Analysis {
     @Override
     public String getId() {
         return "total_market_value_per_capita";
@@ -20,7 +20,7 @@ public class MarketValueAnalysis extends Analysis {
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) throws Exception {
         double totalMarketValue = dataset.getProperties().stream()
                 .filter(property -> property.getPropertyZip() == Integer.parseInt(params.get(0)))
                 .filter(property -> property.getMarketValue() != null)

@@ -14,5 +14,5 @@ public abstract class Analysis {
 
     public abstract String getId();
 
-    public abstract void analyze(Dataset dataset, ResultEmitter emitter, List<String> params);
+    public abstract void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) throws Exception;
 }

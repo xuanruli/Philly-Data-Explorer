@@ -19,14 +19,14 @@ public class DataProcessor {
         PropertyReader propertyReader = new PropertyReader(propertyFile);
         CovidReader covidReader = new CovidReader(covidFile);
 
-        this.dataset = new Dataset(populationReader.read(), propertyReader.read(), covidReader.read());
+        this.dataset = new Dataset(populationReader, propertyReader, covidReader);
     }
 
-    public void process(Analysis analysis) {
+    public void process(Analysis analysis) throws Exception {
         process(analysis, List.of());
     }
 
-    public String process(Analysis analysis, List<String> extraArgs) {
+    public String process(Analysis analysis, List<String> extraArgs) throws Exception {
         if (extraArgs == null || extraArgs.size() != analysis.getExtraParamsPrompts().size()) {
             assert extraArgs != null;
             throw new IllegalArgumentException("Invalid extra arguments: " + extraArgs.toString());

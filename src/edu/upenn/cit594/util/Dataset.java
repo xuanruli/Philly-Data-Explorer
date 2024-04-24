@@ -1,27 +1,46 @@
 package edu.upenn.cit594.util;
 
+import edu.upenn.cit594.datamanagement.PopulationReader;
+import edu.upenn.cit594.datamanagement.PropertyReader;
+import edu.upenn.cit594.datamanagement.CovidReader;
+
 import java.util.List;
 
 public class Dataset {
-    private final List<Population> populations;
-    private final List<Property> properties;
-    private final List<CovidData> covidData;
+    private List<Population> populations;
+    private List<Property> properties;
+    private List<CovidData> covidData;
 
-    public Dataset(List<Population> populations, List<Property> properties, List<CovidData> covidData) {
-        this.populations = populations;
-        this.properties = properties;
-        this.covidData = covidData;
+    private final PopulationReader populationReader;
+    private final PropertyReader propertyReader;
+    private final CovidReader covidDataReader;
+
+
+
+    public Dataset(PopulationReader populationReader, PropertyReader propertyReader, CovidReader covidDataReader) {
+        this.populationReader = populationReader;
+        this.propertyReader = propertyReader;
+        this.covidDataReader = covidDataReader;
     }
 
-    public List<Population> getPopulations() {
+    public List<Population> getPopulations() throws Exception {
+        if (populations == null) {
+            populations = populationReader.read();
+        }
         return populations;
     }
 
-    public List<Property> getProperties() {
+    public List<Property> getProperties() throws Exception {
+        if (properties == null) {
+            properties = propertyReader.read();
+        }
         return properties;
     }
 
-    public List<CovidData> getCovidData() {
+    public List<CovidData> getCovidData() throws Exception {
+        if (covidData == null) {
+            covidData = covidDataReader.read();
+        }
         return covidData;
     }
 }
