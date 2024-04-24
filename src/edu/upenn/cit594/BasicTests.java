@@ -1,4 +1,4 @@
-package edu.upenn.cit594.studenttests;
+package edu.upenn.cit594;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

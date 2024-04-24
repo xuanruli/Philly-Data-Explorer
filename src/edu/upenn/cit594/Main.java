@@ -22,7 +22,10 @@ public class Main {
 //        processor.process(analysis, List.of("full", "2021-03-25"));
 
 //        Analysis analysis = new AvgMarketValueAnalysis();
-//        processor.process(analysis, List.of("19132"));
+//        processor.process(analysis, List.of("19106"));
+
+        Analysis analysis = new AvgLivableAreaAnalysis();
+        processor.process(analysis, List.of("19106"));
 
 
     }
