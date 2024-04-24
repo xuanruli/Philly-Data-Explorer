@@ -7,10 +7,21 @@ import edu.upenn.cit594.ui.UIManager;
 import java.io.File;
 import java.util.Map;
 
+import static org.junit.Assert.assertTrue;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Map<String, File> fileMap = ArgumentParser.processRuntimeArgs(args);
+
+        Map<String, File> fileMap;
+        try {
+            fileMap = ArgumentParser.processRuntimeArgs(args);
+        } catch (IllegalArgumentException e) {
+            System.out.println("BEGIN OUTPUT");
+            System.out.println(e.getMessage());
+            System.out.println("END OUTPUT");
+            return;
+        }
 
         DataProcessor processor = new DataProcessor(
             fileMap.get("population"),

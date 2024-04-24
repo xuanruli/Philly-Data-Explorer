@@ -8,8 +8,8 @@ import java.util.function.Function;
 
 public abstract class Analysis {
 
-    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
-        return Map.of();
+    public List<Map.Entry<String, Function<String, Boolean>>> getExtraParamsPrompts() {
+        return List.of();
     }
 
     public abstract String getId();

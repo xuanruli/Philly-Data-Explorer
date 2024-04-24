@@ -13,8 +13,7 @@ public class ArgumentParser {
         Map<String, File> fileMap = new HashMap<>();
 
         if (args.length != 4) {
-            System.out.println("Invalid number of arguments");
-            System.exit(0);
+            throw new IllegalArgumentException("Invalid number of arguments");
         }
 
         // regex pattern to match the runtime arguments
@@ -24,8 +23,7 @@ public class ArgumentParser {
 
             // check if argument format is valid
             if (!match.find()) {
-                System.out.println("Invalid argument format: " + arg);
-                System.exit(0);
+                throw new IllegalArgumentException("Invalid argument format: " + arg);
             }
 
             String name = match.group("name");
@@ -33,21 +31,28 @@ public class ArgumentParser {
 
             // check if argument name is valid
             if (!validArgs.contains(name)) {
-                System.out.println("Invalid argument name: " + name);
-                System.exit(0);
+                throw new IllegalArgumentException("Invalid argument name: " + name);
             }
 
             // check if file path exists in file system
             File file = new File(value);
+
+            // if log file does not exist, create it
+            if (name.equals("log") && !file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Failed to create log file: " + value);
+                }
+            }
+
             if (!file.exists() || !file.canRead()) {
-                System.out.println("Invalid file path: " + value);
-                System.exit(0);
+                throw new IllegalArgumentException("Invalid file path: " + value);
             }
 
             // check file name for covid data is json or csv, case-insensitive
             if (name.equals("covid") && !value.toLowerCase().endsWith(".json") && !value.toLowerCase().endsWith(".csv")) {
-                System.out.println("Invalid file type for covid data: " + value);
-                System.exit(0);
+                throw new IllegalArgumentException("Invalid file type for covid data: " + value);
             }
 
             fileMap.put(name, file);

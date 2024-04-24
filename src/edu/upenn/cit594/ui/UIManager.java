@@ -21,6 +21,7 @@ public class UIManager {
 
     public void displayPrompt() {
         System.out.print("> ");
+        System.out.flush();
     }
 
     public void displayContent(String s) {
@@ -51,7 +52,12 @@ public class UIManager {
             displayContent("Invalid input. Please try again.");
             displayContent(prompt);
             displayPrompt();
-            input = scanner.nextLine();
+            try {
+                input = scanner.nextLine();
+            } catch (Exception e) {
+                displayContent(e.getMessage());
+                break;
+            }
         }
 
         return input;
@@ -84,18 +90,20 @@ public class UIManager {
 
             // Show the available actions
             if (choice == 1) {
+                displayContent("\nBEGIN OUTPUT");
                 showAvailableActions();
+                displayContent("END OUTPUT");
                 continue;
             }
 
             // Run the selected analysis
             Analysis analysis = analysisList.get(choice - 2).getValue();
-            List<String> params = analysis.getExtraParamsPrompts().entrySet().stream()
+            List<String> params = analysis.getExtraParamsPrompts().stream()
                 .map(entry -> promptAndValidateParameter(entry.getKey(), entry.getValue(), scanner))
                 .toList();
 
             String result = processor.process(analysis, params);
-            displayContent("BEGIN OUTPUT\n" + result + "\nEND OUTPUT");
+            displayContent("\nBEGIN OUTPUT\n" + result + "\nEND OUTPUT");
         }
 
         scanner.close();

@@ -21,12 +21,10 @@ public class VaccinationPerCapitaAnalysis extends Analysis {
     }
 
     @Override
-    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
-        return Map.of(
-            "Which type of vaccination result, \"partial\" or \"full\"?",
-            s -> s.equals("partial") || s.equals("full"),
-            "What is the date in YYYY-MM-DD format?",
-            s -> s.matches("\\d{4}-\\d{2}-\\d{2}")
+    public List<Map.Entry<String, Function<String, Boolean>>> getExtraParamsPrompts() {
+        return List.of(
+            Map.entry("Which type of vaccination result, \"partial\" or \"full\"?", s -> s.equals("partial") || s.equals("full")),
+            Map.entry("What is the date in YYYY-MM-DD format?", s -> s.matches("\\d{4}-\\d{2}-\\d{2}"))
         );
     }
 

@@ -15,8 +15,10 @@ public class MarketValuePerCapitaAnalysis extends Analysis {
     }
 
     @Override
-    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
-        return Map.of("Which is the 5-digit ZIP code?", s -> s.matches("\\d{5}"));
+    public List<Map.Entry<String, Function<String, Boolean>>> getExtraParamsPrompts() {
+        return List.of(
+                Map.entry("Which is the 5-digit ZIP code?", s -> s.matches("\\d{5}"))
+        );
     }
 
     @Override
