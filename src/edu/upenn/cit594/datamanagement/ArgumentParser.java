@@ -40,15 +40,6 @@ public class ArgumentParser {
             // check if file path exists in file system
             File file = new File(value);
 
-            // if log file does not exist, create it
-            if (name.equals("log") && !file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("Failed to create log file: " + value);
-                }
-            }
-
             if (!file.exists() || !file.canRead()) {
                 throw new IllegalArgumentException("Invalid file path: " + value);
             }
