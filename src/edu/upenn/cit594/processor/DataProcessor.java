@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class DataProcessor {
     private final Dataset dataset;
-    private final Map<String, List<String>> analysisResults = new HashMap<>();
-
+    private final Map<Integer, Analysis> analyses = new HashMap<>();
+    private final Map<Integer, List<String>> analysisResults = new HashMap<>();
 
     public DataProcessor(File populationFile, File propertyFile, File covidFile) throws Exception {
         PopulationReader populationReader = new PopulationReader(populationFile);
@@ -23,13 +23,24 @@ public class DataProcessor {
         this.dataset = new Dataset(populationReader.read(), propertyReader.read(), covidReader.read());
     }
 
-    public void process(Analysis analysis) {
-        if (!analysisResults.containsKey(analysis.getId())) {
+    public void createAnalysis(int id, Analysis analysis) {
+        analyses.put(id, analysis);
+    }
+
+    public void processAnalysis(int analysisId) {
+        Analysis analysis = analyses.get(analysisId);
+
+        if (analysis == null) {
+            throw new IllegalArgumentException("Invalid analysis ID");
+        }
+
+        if (!analysisResults.containsKey(analysisId)) {
             ResultEmitter emitter = new ResultEmitter();
             analysis.analyze(dataset, emitter);
-            analysisResults.put(analysis.getId(), emitter.getResults());
+            analysisResults.put(analysisId, emitter.getResults());
         }
-        showResults(analysisResults.get(analysis.getId()));
+
+        showResults(analysisResults.get(analysisId));
     }
 
     public void showResults(List<String> results) {

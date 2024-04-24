@@ -1,6 +1,8 @@
 package edu.upenn.cit594;
 
 import edu.upenn.cit594.datamanagement.*;
+import edu.upenn.cit594.processor.DataProcessor;
+import edu.upenn.cit594.processor.PopulationAnalysis;
 import edu.upenn.cit594.ui.UIManager;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.Population;
@@ -15,40 +17,16 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Map<String, File> fileMap = ArgumentParser.processRuntimeArgs(args);
 
-//        CSVReader reader = new CSVReader(fileMap.get("population"));
-//        List<Map<String, String>> populationData = reader.read();
-//        System.out.println(populationData);
+        DataProcessor processor = new DataProcessor(
+            fileMap.get("population"),
+            fileMap.get("properties"),
+            fileMap.get("covid")
+        );
 
-//        CSVReader reader2 = new CSVReader(fileMap.get("covid"));
-//        List<Map<String, String>> covidData = reader2.read();
-//        System.out.println(covidData.subList(0, 10));
+        PopulationAnalysis populationAnalysis = new PopulationAnalysis();
 
-        CovidReader covidCSVReader = new CovidReader(fileMap.get("covid"));
-        List<CovidData> covidDataList = covidCSVReader.read();
+        processor.createAnalysis(1, populationAnalysis);
 
-        File file = new File("covid_data.json");
-        CovidReader covidJSONReader = new CovidReader(file);
-        List<CovidData> covidDataList2 = covidJSONReader.read();
-
-        assert covidDataList.size() == covidDataList2.size();
-        System.out.println("Size of covidDataList1: " + covidDataList.size());
-        System.out.println("Size of covidDataList2: " + covidDataList2.size());
-        for (int i = 0; i < covidDataList.size(); i++) {
-            if (!covidDataList.get(i).equals(covidDataList2.get(i))) {
-                System.out.println("i: " + i);
-                System.out.println("covidDataList1: " + covidDataList.get(i));
-                System.out.println("covidDataList2: " + covidDataList2.get(i));
-            }
-        }
-
-        System.out.println("All covid data are the same");
-
-        PopulationReader populationReader = new PopulationReader(fileMap.get("population"));
-        List<Population> populationList = populationReader.read();
-        System.out.println(populationList);
-
-        PropertyReader propertyReader = new PropertyReader(fileMap.get("properties"));
-        List<Property> propertyList = propertyReader.read();
-        System.out.println(propertyList.subList(0, 10));
+        processor.processAnalysis(1);
     }
 }
