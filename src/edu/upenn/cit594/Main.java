@@ -28,9 +28,8 @@ public class Main {
 //        processor.process(analysis, List.of("19106"));
 
         Analysis analysis = new MarketValueAnalysis();
-        processor.process(analysis, List.of("19106"));
+        String result = processor.process(analysis, List.of("19106"));
 
-
-
+        System.out.println("BEGIN OUTPUT\n" + result + "\nEND OUTPUT");
     }
 }

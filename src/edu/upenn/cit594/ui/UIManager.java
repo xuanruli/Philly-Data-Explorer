@@ -1,80 +1,102 @@
 package edu.upenn.cit594.ui;
 
-import java.io.File;
+import edu.upenn.cit594.processor.Analysis;
+import edu.upenn.cit594.processor.DataProcessor;
+
 import java.util.*;
+import java.util.function.Function;
 
 public class UIManager {
 
-    public static void initCovidProcessor(String covidFilename){
-        File covidFile = new File(covidFilename);
+    private final DataProcessor processor;
+    private final List<Map.Entry<String, Analysis>> analysisList = new ArrayList<>();
 
-        // terminate if stateFile doesn't exist or cannot be read
-        if (!covidFile.canRead() || !covidFile.exists()) {
-            System.err.println("Failure to read covid file.");
-            return;
-        }
-
-        CovidDataProcessor covidProcessor = CovidDataProcessor.getInstance();
-        covidProcessor.setFile(covidFile);
+    public UIManager(DataProcessor processor) {
+        this.processor = processor;
     }
 
-    public static void displayMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int choice = 0;
+    public void addAnalysis(String desc, Analysis analysis) {
+        analysisList.add(new AbstractMap.SimpleEntry<>(desc, analysis));
+    }
 
-        do {
-            System.out.println("0. Exit the program.");
-            System.out.println("1. Show the available actions");
-            System.out.println("2. Show the total population for all ZIP Codes");
-            System.out.println("3. Show the total vaccinations per capita for each ZIP Code for the specified date");
-            System.out.println("4. Show the average market value for properties in a specified ZIP Code");
-            System.out.println("5. Show the average total livable area for properties in a specified ZIP Code");
-            System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code");
-            System.out.println("7. Show the results of your custom feature");
-            System.out.print("> ");
-            System.out.flush();
+    public void displayPrompt() {
+        System.out.print("> ");
+        System.out.flush();
+    }
+
+    public void displayContent(String s) {
+        System.out.println(s);
+    }
+
+    public void showAvailableActions() {
+        List<String> actionList = new ArrayList<>(List.of(
+            "Exit the program",
+            "Show the available actions"
+        ));
+
+        for (var entry : analysisList) {
+            actionList.add(entry.getKey());
+        }
+
+        for (int i = 0; i < actionList.size(); i++) {
+            displayContent(i + ". " + actionList.get(i));
+        }
+    }
+
+    public String promptAndValidateParameter(String prompt, Function<String, Boolean> validate, Scanner scanner) {
+        displayContent(prompt);
+        displayPrompt();
+
+        String input = scanner.nextLine();
+        while (!validate.apply(input)) {
+            displayContent("Invalid input. Please try again.");
+            displayContent(prompt);
+            displayPrompt();
+            input = scanner.nextLine();
+        }
+
+        return input;
+    }
+
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        showAvailableActions();
+
+        int choice;
+        while (true) {
+            displayPrompt();
 
             try {
                 choice = scanner.nextInt();
             } catch (Exception e) {
-                System.out.println("Invalid input. Only try number from 0 to 7." );
+                displayContent("Invalid input, should be a number." );
                 scanner.nextLine();
                 continue;
             }
 
-            switch (choice) {
-                case 0:
-                    System.out.println("Exiting the program.");
-                    break;
-
-                case 1:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-
-                    break;
-
-                case 5:
-
-                    break;
-
-                case 6:
-
-                    break;
-
-                case 7:
-
-                    break;
-
-                default:
-                    System.out.println("Invalid input. Only try number from 0 to 7.");
+            if (choice < 0 || choice > analysisList.size() + 1) {
+                displayContent("Invalid input. Only try number from 0 to " + analysisList.size());
+                continue;
             }
 
+            // Exit the program
+            if (choice == 0) break;
 
-        } while (choice != 0);
+            // Show the available actions
+            if (choice == 1) {
+                showAvailableActions();
+                continue;
+            }
+
+            // Run the selected analysis
+            Analysis analysis = analysisList.get(choice - 2).getValue();
+            List<String> params = analysis.getExtraParamsPrompts().entrySet().stream()
+                .map(entry -> promptAndValidateParameter(entry.getKey(), entry.getValue(), scanner))
+                .toList();
+
+            String result = processor.process(analysis, params);
+            displayContent("BEGIN OUTPUT\n" + result + "\nEND OUTPUT");
+        }
 
         scanner.close();
     }

@@ -15,21 +15,21 @@ public class MarketValueAnalysis extends Analysis {
     }
 
     @Override
-    public Map<String, Function<String, Boolean>> getExtraArgsPrompts() {
+    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
         return Map.of("Which is the 5-digit ZIP code?", s -> s.matches("\\d{5}"));
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> extraArg) {
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
         double totalMarketValue = dataset.getProperties().stream()
-                .filter(property -> property.getPropertyZip() == Integer.parseInt(extraArg.get(0)))
+                .filter(property -> property.getPropertyZip() == Integer.parseInt(params.get(0)))
                 .filter(property -> property.getMarketValue() != null)
                 .mapToDouble(Property::getMarketValue)
                 .sum();
 
         int totalPopulation = 0;
         for (Population population : dataset.getPopulations()) {
-            if (population.getPopulationZip() == Integer.parseInt(extraArg.get(0))) {
+            if (population.getPopulationZip() == Integer.parseInt(params.get(0))) {
                 totalPopulation = population.getPopulation();
                 break;
             }

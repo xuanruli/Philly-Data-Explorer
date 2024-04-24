@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class DataProcessor {
     private final Dataset dataset;
-    private final Map<String, Map<String, List<String>>> analysisResults = new HashMap<>();
+    private final Map<String, Map<String, String>> analysisResults = new HashMap<>();
 
     public DataProcessor(File populationFile, File propertyFile, File covidFile) throws Exception {
         PopulationReader populationReader = new PopulationReader(populationFile);
@@ -26,8 +26,8 @@ public class DataProcessor {
         process(analysis, List.of());
     }
 
-    public void process(Analysis analysis, List<String> extraArgs) {
-        if (extraArgs == null || extraArgs.size() != analysis.getExtraArgsPrompts().size()) {
+    public String process(Analysis analysis, List<String> extraArgs) {
+        if (extraArgs == null || extraArgs.size() != analysis.getExtraParamsPrompts().size()) {
             assert extraArgs != null;
             throw new IllegalArgumentException("Invalid extra arguments: " + extraArgs.toString());
         }
@@ -36,23 +36,15 @@ public class DataProcessor {
             analysisResults.put(analysis.getId(), new HashMap<>());
         }
 
-        Map<String, List<String>> results = analysisResults.get(analysis.getId());
+        Map<String, String> results = analysisResults.get(analysis.getId());
 
         String extraArgsKey = extraArgs.toString();
         if (!results.containsKey(extraArgsKey)) {
             ResultEmitter emitter = new ResultEmitter();
             analysis.analyze(dataset, emitter, extraArgs);
-            results.put(extraArgsKey, emitter.getResults());
+            results.put(extraArgsKey, String.join("\n", emitter.getResults()));
         }
 
-        showResults(results.get(extraArgsKey));
-    }
-
-    public void showResults(List<String> results) {
-        System.out.println("BEGIN OUTPUT");
-        for (String line : results) {
-            System.out.println(line);
-        }
-        System.out.println("END OUTPUT");
+        return results.get(extraArgsKey);
     }
 }

@@ -8,11 +8,11 @@ import java.util.function.Function;
 
 public abstract class Analysis {
 
-    public Map<String, Function<String, Boolean>> getExtraArgsPrompts() {
+    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
         return Map.of();
     }
 
     public abstract String getId();
 
-    public abstract void analyze(Dataset dataset, ResultEmitter emitter, List<String> extraArg);
+    public abstract void analyze(Dataset dataset, ResultEmitter emitter, List<String> params);
 }

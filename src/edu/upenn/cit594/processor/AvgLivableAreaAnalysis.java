@@ -16,14 +16,14 @@ public class AvgLivableAreaAnalysis extends Analysis {
     }
 
     @Override
-    public Map<String, Function<String, Boolean>> getExtraArgsPrompts() {
+    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
         return Map.of("Which is the 5-digit ZIP code?", s -> s.matches("\\d{5}"));
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> extraArg) {
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
         List<Double> livableAreas = dataset.getProperties().stream()
-                .filter(property -> property.getPropertyZip() == Integer.parseInt(extraArg.get(0)))
+                .filter(property -> property.getPropertyZip() == Integer.parseInt(params.get(0)))
                 .map(Property::getArea)
                 .filter(Objects::nonNull)
                 .toList();

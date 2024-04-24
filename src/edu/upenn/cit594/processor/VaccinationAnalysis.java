@@ -22,7 +22,7 @@ public class VaccinationAnalysis extends Analysis {
     }
 
     @Override
-    public Map<String, Function<String, Boolean>> getExtraArgsPrompts() {
+    public Map<String, Function<String, Boolean>> getExtraParamsPrompts() {
         return Map.of(
             "Which type of vaccination result, \"partial\" or \"full\"?",
             s -> s.equals("partial") || s.equals("full"),
@@ -32,9 +32,9 @@ public class VaccinationAnalysis extends Analysis {
     }
 
     @Override
-    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> extraArgs) {
-        VaccinationType vaccinationType = getVaccinationType(extraArgs.get(0));
-        String date = extraArgs.get(1);
+    public void analyze(Dataset dataset, ResultEmitter emitter, List<String> params) {
+        VaccinationType vaccinationType = getVaccinationType(params.get(0));
+        String date = params.get(1);
 
         List<CovidData> covidData = dataset.getCovidData().stream()
             .filter(data -> data.getTimestamp().startsWith(date))
