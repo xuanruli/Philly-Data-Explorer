@@ -1,10 +1,13 @@
 package edu.upenn.cit594.processor;
 
+import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.Dataset;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class VaccinationAnalysis extends Analysis {
 
@@ -33,7 +36,33 @@ public class VaccinationAnalysis extends Analysis {
         VaccinationType vaccinationType = getVaccinationType(extraArgs.get(0));
         String date = extraArgs.get(1);
 
+        List<CovidData> covidData = dataset.getCovidData().stream()
+            .filter(data -> data.getTimestamp().startsWith(date))
+            .toList();
 
+        // zip code to total partial/full vaccinations
+        Map<Integer, Integer> zipToVaccinations = new HashMap<>();
+        for (CovidData data : covidData) {
+            int count = vaccinationType == VaccinationType.PARTIAL
+                ? data.getNumPartiallyVaccinated()
+                : data.getNumFullyVaccinated();
+            zipToVaccinations.put(data.getCovidDataZip(), zipToVaccinations.getOrDefault(data.getCovidDataZip(), 0) + count);
+        }
+
+        // total population for each zip code
+        Map<Integer, Integer> zipToPopulation = new HashMap<>();
+        for (var population : dataset.getPopulations()) {
+            zipToPopulation.put(population.getPopulationZip(), population.getPopulation());
+        }
+
+        // iterate over each population zip code
+        for (var entry : zipToPopulation.entrySet()) {
+            int zip = entry.getKey();
+            int population = entry.getValue();
+            int vaccinations = zipToVaccinations.getOrDefault(zip, 0);
+            float vaccinationsPerCapita = population == 0 ? 0 : (float) vaccinations / population;
+            emitter.emit(String.format("%d %.4f", zip, vaccinationsPerCapita));
+        }
     }
 
     private VaccinationType getVaccinationType(String extraArg) {

@@ -28,7 +28,8 @@ public class DataProcessor {
 
     public void process(Analysis analysis, List<String> extraArgs) {
         if (extraArgs == null || extraArgs.size() != analysis.getExtraArgsPrompts().size()) {
-            throw new IllegalArgumentException("Invalid extra arguments");
+            assert extraArgs != null;
+            throw new IllegalArgumentException("Invalid extra arguments: " + extraArgs.toString());
         }
 
         if (!analysisResults.containsKey(analysis.getId())) {
