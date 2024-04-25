@@ -1,11 +1,13 @@
 package edu.upenn.cit594.processor;
 
+import com.sun.source.tree.Tree;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.Dataset;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 
 public class VaccinationPerCapitaAnalysis extends Analysis {
@@ -47,7 +49,7 @@ public class VaccinationPerCapitaAnalysis extends Analysis {
         }
 
         // total population for each zip code
-        Map<Integer, Integer> zipToPopulation = new HashMap<>();
+        Map<Integer, Integer> zipToPopulation = new TreeMap<>();
         for (var population : dataset.getPopulations()) {
             zipToPopulation.put(population.getPopulationZip(), population.getPopulation());
         }

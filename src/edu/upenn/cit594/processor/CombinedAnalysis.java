@@ -65,6 +65,5 @@ public class CombinedAnalysis extends Analysis {
         }
 
         emitter.emit(String.format("%.4f", ratio));
-
     }
 }
