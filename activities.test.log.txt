@@ -87,3 +87,6 @@
 2024-04-24 20:15:49 [USER INPUT] 6
 2024-04-24 20:15:49 [READ] properties.csv
 2024-04-24 20:15:49 [READ] properties.csv
+2024-04-24 20:15:54 [READ] population.csv
+2024-04-24 20:15:54 [READ] population.csv
+2024-04-24 20:15:54 [USER INPUT] 0
