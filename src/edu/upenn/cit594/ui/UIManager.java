@@ -7,6 +7,7 @@ import edu.upenn.cit594.util.Dataset;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class UIManager {
 
@@ -114,7 +115,7 @@ public class UIManager {
             Analysis analysis = analysisList.get(choice - 2).getValue();
             List<String> params = analysis.getExtraParamsPrompts().stream()
                 .map(entry -> promptAndValidateParameter(entry.getKey(), entry.getValue(), scanner))
-                .toList();
+                .collect(Collectors.toList());
 
             String result = processor.process(analysis, params);
             displayContent("\nBEGIN OUTPUT\n" + result + "\nEND OUTPUT");
