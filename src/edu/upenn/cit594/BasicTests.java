@@ -148,6 +148,10 @@ public class BasicTests {
 		Set<String> sResult2 = new HashSet<>(extractResults(result2));
 
 		assertTrue("Repeated execution failed", sResult1.equals(sResult2));
+
+		for (String line : sResult1) {
+			assertTrue("bad line " + line, line.matches("^\\d+ (0|[\\d\\.]+)$"));
+		}
 	}
 
 	/* This one invokes main 7 times and might take a while. */
