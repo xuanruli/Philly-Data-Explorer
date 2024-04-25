@@ -4,10 +4,7 @@ import com.sun.source.tree.Tree;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.Dataset;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Function;
 
 public class VaccinationPerCapitaAnalysis extends Analysis {
@@ -28,6 +25,11 @@ public class VaccinationPerCapitaAnalysis extends Analysis {
             Map.entry("Which type of vaccination result, \"partial\" or \"full\"?", s -> s.equals("partial") || s.equals("full")),
             Map.entry("What is the date in YYYY-MM-DD format?", s -> s.matches("\\d{4}-\\d{2}-\\d{2}"))
         );
+    }
+
+    @Override
+    public Set<Dataset.DataType> getRequiredDeps() {
+        return Set.of(Dataset.DataType.COVID, Dataset.DataType.POPULATION);
     }
 
     @Override

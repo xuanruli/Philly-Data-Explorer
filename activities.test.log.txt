@@ -1,0 +1,89 @@
+2024-04-24 20:12:53 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:12:53 [USER INPUT] 1
+2024-04-24 20:12:53 [USER INPUT] 2
+2024-04-24 20:12:53 [READ] population.csv
+2024-04-24 20:12:53 [READ] population.csv
+2024-04-24 20:12:53 [USER INPUT] 3
+2024-04-24 20:12:53 [READ] covid_data.csv
+2024-04-24 20:12:53 [READ] covid_data.csv
+2024-04-24 20:12:53 [USER INPUT] 4
+2024-04-24 20:12:53 [READ] properties.csv
+2024-04-24 20:12:53 [READ] properties.csv
+2024-04-24 20:12:59 [USER INPUT] 5
+2024-04-24 20:12:59 [USER INPUT] 6
+2024-04-24 20:12:59 [USER INPUT] 0
+2024-04-24 20:12:59 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:12:59 [USER INPUT] 1
+2024-04-24 20:12:59 [USER INPUT] 0
+2024-04-24 20:12:59 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:12:59 [USER INPUT] 2
+2024-04-24 20:12:59 [READ] population.csv
+2024-04-24 20:12:59 [READ] population.csv
+2024-04-24 20:12:59 [USER INPUT] 0
+2024-04-24 20:12:59 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:12:59 [USER INPUT] 3
+2024-04-24 20:12:59 [READ] covid_data.csv
+2024-04-24 20:12:59 [READ] covid_data.csv
+2024-04-24 20:12:59 [READ] population.csv
+2024-04-24 20:12:59 [READ] population.csv
+2024-04-24 20:12:59 [USER INPUT] 0
+2024-04-24 20:12:59 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:12:59 [USER INPUT] 4
+2024-04-24 20:12:59 [READ] properties.csv
+2024-04-24 20:12:59 [READ] properties.csv
+2024-04-24 20:13:06 [USER INPUT] 0
+2024-04-24 20:13:06 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:13:06 [USER INPUT] 5
+2024-04-24 20:13:06 [READ] properties.csv
+2024-04-24 20:13:06 [READ] properties.csv
+2024-04-24 20:13:12 [USER INPUT] 0
+2024-04-24 20:13:12 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:13:12 [USER INPUT] 6
+2024-04-24 20:13:12 [READ] properties.csv
+2024-04-24 20:13:12 [READ] properties.csv
+2024-04-24 20:13:18 [READ] population.csv
+2024-04-24 20:13:18 [READ] population.csv
+2024-04-24 20:13:18 [USER INPUT] 0
+2024-04-24 20:15:30 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:30 [USER INPUT] 1
+2024-04-24 20:15:30 [USER INPUT] 2
+2024-04-24 20:15:30 [READ] population.csv
+2024-04-24 20:15:30 [READ] population.csv
+2024-04-24 20:15:30 [USER INPUT] 3
+2024-04-24 20:15:30 [READ] covid_data.csv
+2024-04-24 20:15:30 [READ] covid_data.csv
+2024-04-24 20:15:30 [USER INPUT] 4
+2024-04-24 20:15:30 [READ] properties.csv
+2024-04-24 20:15:30 [READ] properties.csv
+2024-04-24 20:15:37 [USER INPUT] 5
+2024-04-24 20:15:37 [USER INPUT] 6
+2024-04-24 20:15:37 [USER INPUT] 0
+2024-04-24 20:15:37 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:37 [USER INPUT] 1
+2024-04-24 20:15:37 [USER INPUT] 0
+2024-04-24 20:15:37 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:37 [USER INPUT] 2
+2024-04-24 20:15:37 [READ] population.csv
+2024-04-24 20:15:37 [READ] population.csv
+2024-04-24 20:15:37 [USER INPUT] 0
+2024-04-24 20:15:37 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:37 [USER INPUT] 3
+2024-04-24 20:15:37 [READ] covid_data.csv
+2024-04-24 20:15:37 [READ] covid_data.csv
+2024-04-24 20:15:37 [READ] population.csv
+2024-04-24 20:15:37 [READ] population.csv
+2024-04-24 20:15:37 [USER INPUT] 0
+2024-04-24 20:15:37 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:37 [USER INPUT] 4
+2024-04-24 20:15:37 [READ] properties.csv
+2024-04-24 20:15:37 [READ] properties.csv
+2024-04-24 20:15:43 [USER INPUT] 0
+2024-04-24 20:15:43 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:43 [USER INPUT] 5
+2024-04-24 20:15:43 [READ] properties.csv
+2024-04-24 20:15:43 [READ] properties.csv
+2024-04-24 20:15:49 [USER INPUT] 0
+2024-04-24 20:15:49 [COMMAND] --log=activities.test.log.txt, --covid=covid_data.csv, --properties=properties.csv, --population=population.csv
+2024-04-24 20:15:49 [USER INPUT] 6
+2024-04-24 20:15:49 [READ] properties.csv
+2024-04-24 20:15:49 [READ] properties.csv

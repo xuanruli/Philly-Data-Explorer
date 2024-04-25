@@ -3,6 +3,7 @@ package edu.upenn.cit594.ui;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Analysis;
 import edu.upenn.cit594.processor.DataProcessor;
+import edu.upenn.cit594.util.Dataset;
 
 import java.util.*;
 import java.util.function.Function;
@@ -31,12 +32,21 @@ public class UIManager {
     }
 
     public void showAvailableActions() {
+        Set<Dataset.DataType> availableDeps = processor.getAvailableDeps();
+
         List<String> actionList = new ArrayList<>(List.of(
             "Exit the program",
             "Show the available actions"
         ));
 
         for (var entry : analysisList) {
+            Analysis analysis = entry.getValue();
+            Set<Dataset.DataType> requiredDeps = analysis.getRequiredDeps();
+
+            if (!availableDeps.containsAll(requiredDeps)) {
+                continue;
+            }
+
             actionList.add(entry.getKey());
         }
 

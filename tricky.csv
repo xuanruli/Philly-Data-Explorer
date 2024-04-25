@@ -1,0 +1,6 @@
+Header field 0,""","""","""""",,"",fun, right?","
+Still a header field (2 to be specific"
+0.0,0.1,0.2
+1.0,1.1,1.2
+"2.0, but only because it's zero indexed
+I think",2.1,"""2.2"""

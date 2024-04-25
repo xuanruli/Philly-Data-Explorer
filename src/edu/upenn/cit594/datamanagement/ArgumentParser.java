@@ -15,10 +15,6 @@ public class ArgumentParser {
     public static Map<String, File> processRuntimeArgs(String[] args) {
         Map<String, File> fileMap = new HashMap<>();
 
-        if (args.length != 4) {
-            throw new IllegalArgumentException("Invalid number of arguments");
-        }
-
         // regex pattern to match the runtime arguments
         Pattern pattern = Pattern.compile("^--(?<name>.+?)=(?<value>.+)$");
         for (String arg : args) {
@@ -37,8 +33,22 @@ public class ArgumentParser {
                 throw new IllegalArgumentException("Invalid argument name: " + name);
             }
 
+            // check for duplicate arguments
+            if (fileMap.containsKey(name)) {
+                throw new IllegalArgumentException("Duplicate argument: " + name);
+            }
+
             // check if file path exists in file system
             File file = new File(value);
+
+            // check if log file can be opened for writing
+            if (name.equals("log")) {
+                try {
+                    file.createNewFile();
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Failed to create log file: " + value);
+                }
+            }
 
             if (!file.exists() || !file.canRead()) {
                 throw new IllegalArgumentException("Invalid file path: " + value);
@@ -50,6 +60,13 @@ public class ArgumentParser {
             }
 
             fileMap.put(name, file);
+        }
+
+        // check if log file is provided
+        if (!fileMap.containsKey("log")) {
+            String defaultLogFileName = "events.log";
+            File logFile = new File(defaultLogFileName);
+            fileMap.put("log", logFile);
         }
 
         Logger logger = Logger.getInstance();

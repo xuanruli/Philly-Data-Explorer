@@ -13,7 +13,7 @@ public abstract class DataReader<T> {
 
     public T read() throws Exception {
         if (file == null || !file.exists()) {
-            System.err.println("File does not exist.");
+            throw new Exception("File does not exist.");
         }
 
         Logger logger = Logger.getInstance();

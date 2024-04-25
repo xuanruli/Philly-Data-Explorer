@@ -6,6 +6,7 @@ import edu.upenn.cit594.util.Property;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 
 public class AvgLivableAreaAnalysis extends Analysis {
@@ -20,6 +21,11 @@ public class AvgLivableAreaAnalysis extends Analysis {
         return List.of(
                 Map.entry("Which is the 5-digit ZIP code?", s -> s.matches("\\d{5}"))
         );
+    }
+
+    @Override
+    public Set<Dataset.DataType> getRequiredDeps() {
+        return Set.of(Dataset.DataType.PROPERTY);
     }
 
     @Override

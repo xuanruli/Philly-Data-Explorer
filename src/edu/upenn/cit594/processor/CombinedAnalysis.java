@@ -7,6 +7,7 @@ import edu.upenn.cit594.util.Property;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,11 @@ public class CombinedAnalysis extends Analysis {
                 Map.entry("Which is the 5-digit ZIP code?", s -> s.matches("\\d{5}")),
                 Map.entry("What is the date in YYYY-MM-DD format?", s -> s.matches("\\d{4}-\\d{2}-\\d{2}"))
         );
+    }
+
+    @Override
+    public Set<Dataset.DataType> getRequiredDeps() {
+        return Set.of(Dataset.DataType.COVID, Dataset.DataType.PROPERTY, Dataset.DataType.POPULATION);
     }
 
     @Override

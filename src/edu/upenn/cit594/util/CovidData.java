@@ -70,10 +70,11 @@ public class CovidData {
             return true;
         }
 
-        if (!(obj instanceof CovidData other)) {
+        try {
+            CovidData other = (CovidData) obj;
+            return zip == other.zip && timestamp.equals(other.timestamp) && numPartiallyVaccinated == other.numPartiallyVaccinated && numFullyVaccinated == other.numFullyVaccinated;
+        } catch (ClassCastException e) {
             return false;
         }
-
-        return zip == other.zip && timestamp.equals(other.timestamp) && numPartiallyVaccinated == other.numPartiallyVaccinated && numFullyVaccinated == other.numFullyVaccinated;
     }
 }

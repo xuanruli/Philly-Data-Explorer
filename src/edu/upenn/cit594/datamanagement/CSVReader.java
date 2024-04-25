@@ -6,17 +6,15 @@ import java.util.*;
 
 public class CSVReader extends DataReader<List<Map<String, String>>> {
 
-    private final CSVParser csvLexer;
-
-    public CSVReader(File file) throws IOException {
+    public CSVReader(File file) {
         super(file);
-
-        CharacterReader charReader = new CharacterReader(file.getName());
-        this.csvLexer = new CSVParser(charReader);
     }
 
     @Override
     protected List<Map<String, String>> getDataFromFile() throws Exception {
+        CharacterReader charReader = new CharacterReader(file.getName());
+        CSVParser csvLexer = new CSVParser(charReader);
+
         List<String[]> rowList = new ArrayList<>();
         List<Map<String, String>> data = new ArrayList<>();
 

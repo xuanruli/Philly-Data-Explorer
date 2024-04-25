@@ -15,7 +15,11 @@ public class Dataset {
     private final PropertyReader propertyReader;
     private final CovidReader covidDataReader;
 
-
+    public enum DataType {
+        POPULATION,
+        PROPERTY,
+        COVID
+    }
 
     public Dataset(PopulationReader populationReader, PropertyReader propertyReader, CovidReader covidDataReader) {
         this.populationReader = populationReader;
