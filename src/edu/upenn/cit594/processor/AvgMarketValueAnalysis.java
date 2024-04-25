@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class AvgMarketValueAnalysis extends Analysis {
 
@@ -28,7 +29,7 @@ public class AvgMarketValueAnalysis extends Analysis {
                 .filter(property -> property.getPropertyZip() == Integer.parseInt(params.get(0)))
                 .map(Property::getMarketValue)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         // calculate average market value
         double averageMarketValue = marketValues.stream()

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class VaccinationPerCapitaAnalysis extends Analysis {
 
@@ -37,7 +38,7 @@ public class VaccinationPerCapitaAnalysis extends Analysis {
 
         List<CovidData> covidData = dataset.getCovidData().stream()
             .filter(data -> data.getTimestamp().startsWith(date))
-            .toList();
+            .collect(Collectors.toList());
 
         // zip code to total partial/full vaccinations
         Map<Integer, Integer> zipToVaccinations = new HashMap<>();

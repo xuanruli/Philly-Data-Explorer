@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class AvgLivableAreaAnalysis extends Analysis {
 
@@ -28,7 +29,7 @@ public class AvgLivableAreaAnalysis extends Analysis {
                 .filter(property -> property.getPropertyZip() == Integer.parseInt(params.get(0)))
                 .map(Property::getArea)
                 .filter(Objects::nonNull)
-                .toList();
+                .collect(Collectors.toList());
 
         // calculate average livable area
         double averageLivableArea = livableAreas.stream()
