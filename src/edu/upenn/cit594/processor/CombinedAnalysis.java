@@ -33,7 +33,7 @@ public class CombinedAnalysis extends Analysis {
 
         List<CovidData> covidData = dataset.getCovidData().stream()
                 .filter(data -> data.getTimestamp().startsWith(date))
-                .collect(Collectors.toList());
+                .toList();
 
         // find full vaccination number for specified zipcode
         int fullVax = 0;
