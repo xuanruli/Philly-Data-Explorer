@@ -6,6 +6,7 @@ import edu.upenn.cit594.util.Dataset;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class VaccinationPerCapitaAnalysis extends Analysis {
 
@@ -39,7 +40,7 @@ public class VaccinationPerCapitaAnalysis extends Analysis {
 
         List<CovidData> covidData = dataset.getCovidData().stream()
             .filter(data -> data.getTimestamp().startsWith(date))
-            .toList();
+            .collect(Collectors.toList());
 
         // zip code to total partial/full vaccinations
         Map<Integer, Integer> zipToVaccinations = new HashMap<>();
