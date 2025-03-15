@@ -1,0 +1,31 @@
+2025-03-15 17:56:18 [COMMAND] --population=population.csv, --covid=covid_data.json, --properties=downsampled_properties.csv, --log=log.txt
+2025-03-15 18:02:34 [COMMAND] --population=population.csv, --covid=covid_data.json, --properties=downsampled_properties.csv, --log=log.txt
+2025-03-15 18:02:39 [USER INPUT] 1
+2025-03-15 18:02:49 [USER INPUT] 3
+2025-03-15 18:03:03 [READ] covid_data.json
+2025-03-15 18:03:03 [READ] population.csv
+2025-03-15 18:03:03 [READ] population.csv
+2025-03-15 18:03:45 [USER INPUT] 1
+2025-03-15 18:03:49 [USER INPUT] 3
+2025-03-15 18:06:53 [USER INPUT] 3
+2025-03-15 18:07:11 [USER INPUT] partial
+2025-03-15 18:07:18 [USER INPUT] 2001-05-11
+2025-03-15 18:07:24 [USER INPUT] 0
+2025-03-15 18:07:28 [COMMAND] --population=population.csv, --covid=covid_data.json, --properties=downsampled_properties.csv, --log=log.txt
+2025-03-15 18:07:44 [USER INPUT] 5
+2025-03-15 18:07:49 [READ] downsampled_properties.csv
+2025-03-15 18:07:49 [READ] downsampled_properties.csv
+2025-03-15 18:08:05 [USER INPUT] 19149
+2025-03-15 18:08:08 [USER INPUT] 3
+2025-03-15 18:08:16 [COMMAND] --population=population.csv, --covid=covid_data.json, --properties=downsampled_properties.csv, --log=log.txt
+2025-03-15 18:08:27 [USER INPUT] 5
+2025-03-15 18:08:30 [READ] downsampled_properties.csv
+2025-03-15 18:08:30 [READ] downsampled_properties.csv
+2025-03-15 18:08:39 [USER INPUT] 4
+2025-03-15 18:10:15 [USER INPUT] 1
+2025-03-15 18:10:19 [USER INPUT] 7
+2025-03-15 18:11:32 [READ] covid_data.json
+2025-03-15 18:11:32 [READ] population.csv
+2025-03-15 18:11:32 [READ] population.csv
+2025-03-15 18:11:47 [USER INPUT] 6
+2025-03-15 18:12:15 [COMMAND] --population=population.csv, --covid=covid_data.json, --properties=downsampled_properties.csv, --log=log.txt
